@@ -4,9 +4,8 @@ import com.github.javafaker.Faker;
 import org.testng.annotations.DataProvider;
 import ru.iukhimenko.restfulbooker.dto.booking.BookingDTO;
 import ru.iukhimenko.restfulbooker.dto.booking.BookingDatesDTO;
-
 import java.time.LocalDate;
-import java.util.function.UnaryOperator;
+import java.util.function.Consumer;
 
 public class BookingDataProvider {
     @DataProvider(name = "withAllValues")
@@ -25,12 +24,12 @@ public class BookingDataProvider {
     @DataProvider(name = "withoutMandatoryValue")
     public static Object[][] withoutMandatoryValue() {
         return new Object[][] {
-                { withoutFirstName() },
-                { withoutLastName() },
-                { withoutTotalPrice() },
-                { withoutDepositPaid() },
-                { withoutCheckIn() },
-                { withoutCheckOut() }
+                { remover(bookingDTO -> bookingDTO.setFirstName(null)) },
+                { remover(bookingDTO -> bookingDTO.setLastName(null)) },
+                { remover(bookingDTO -> bookingDTO.setTotalPrice(null)) },
+                { remover(bookingDTO -> bookingDTO.setDepositPaid(null)) },
+                { remover(bookingDTO -> bookingDTO.getBookingDates().setCheckin(null)) },
+                { remover(bookingDTO -> bookingDTO.getBookingDates().setCheckOut(null)) }
         };
     }
 
@@ -51,42 +50,6 @@ public class BookingDataProvider {
         };
     }
 
-    public static BookingDTO withoutFirstName() {
-        BookingDTO booking = getBookingDTOWithAllValues();
-        booking.setFirstName(null);
-        return booking;
-    }
-
-    public static BookingDTO withoutLastName() {
-        BookingDTO booking = getBookingDTOWithAllValues();
-        booking.setLastName(null);
-        return booking;
-    }
-
-    public static BookingDTO withoutTotalPrice() {
-        BookingDTO booking = getBookingDTOWithAllValues();
-        booking.setTotalPrice(null);
-        return booking;
-    }
-
-    public static BookingDTO withoutDepositPaid() {
-        BookingDTO booking = getBookingDTOWithAllValues();
-        booking.setDepositPaid(null);
-        return booking;
-    }
-
-    public static BookingDTO withoutCheckIn() {
-        BookingDTO booking = getBookingDTOWithAllValues();
-        booking.getBookingDates().setCheckin(null);
-        return booking;
-    }
-
-    public static BookingDTO withoutCheckOut() {
-        BookingDTO booking = getBookingDTOWithAllValues();
-        booking.getBookingDates().setCheckOut(null);
-        return booking;
-    }
-
     public static BookingDTO getBookingDTOWithAllValues() {
         LocalDate checkInDate = LocalDate.now().plusMonths(1);
         LocalDate checkOutDate = checkInDate.plusDays(7);
@@ -99,5 +62,11 @@ public class BookingDataProvider {
         booking.setTotalPrice(100);
         booking.setAdditionalNeeds("Breakfast");
         return booking;
+    }
+
+    private static BookingDTO remover(Consumer<BookingDTO> op) {
+        BookingDTO bookingDTO = getBookingDTOWithAllValues();
+        op.accept(bookingDTO);
+        return bookingDTO;
     }
 }

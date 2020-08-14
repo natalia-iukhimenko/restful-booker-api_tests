@@ -1,16 +1,11 @@
 package ru.iukhimenko.restfulbooker.api;
 
-import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.ResponseSpecification;
 import ru.iukhimenko.restfulbooker.Endpoints;
 import ru.iukhimenko.restfulbooker.dto.booking.BookingDTO;
 import io.restassured.http.ContentType;
 import java.util.HashMap;
 import java.util.List;
-
 import static io.restassured.RestAssured.given;
-import static org.apache.http.HttpStatus.SC_NOT_FOUND;
-import static ru.iukhimenko.restfulbooker.requestspecs.BookingRequestSpecs.withIdPathParam;
 import static ru.iukhimenko.restfulbooker.responsespecs.BaseResponseSpecs.success;
 
 public class BookingApi {

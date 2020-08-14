@@ -9,9 +9,6 @@ import ru.iukhimenko.restfulbooker.Endpoints;
 import ru.iukhimenko.restfulbooker.BookingDataProvider;
 import ru.iukhimenko.restfulbooker.api.BookingApi;
 import ru.iukhimenko.restfulbooker.dto.booking.BookingDTO;
-
-import java.util.List;
-
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.iukhimenko.restfulbooker.api.BookingApi.getAllBookingIds;

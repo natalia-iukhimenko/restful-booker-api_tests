@@ -7,7 +7,6 @@ public class BookingDatesDTO {
     private String checkOut;
 
     public BookingDatesDTO() {
-
     }
 
     public BookingDatesDTO(String checkIn, String checkOut) {

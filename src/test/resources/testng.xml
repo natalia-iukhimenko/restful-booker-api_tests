@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="BookingRegressionSuite">
+    <parameter name="username" value="admin"/>
+    <parameter name="password" value="password123"/>
+    <parameter name="invalidBookingId" value="-1"/>
+    <test name="GetBooking">
+        <classes>
+            <class name="ru.iukhimenko.restfulbooker.apitests.GetBookingTest" />
+        </classes>
+    </test>
+    <test name="PostBooking">
+        <classes>
+            <class name="ru.iukhimenko.restfulbooker.apitests.PostBookingTest" />
+        </classes>
+    </test>
+    <test name="PutBooking">
+        <classes>
+            <class name="ru.iukhimenko.restfulbooker.apitests.PutBookingTest" />
+        </classes>
+    </test>
+    <test name="DeleteBooking">
+        <classes>
+            <class name="ru.iukhimenko.restfulbooker.apitests.DeleteBookingTest" />
+        </classes>
+    </test>
+</suite>

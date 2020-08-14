@@ -38,9 +38,9 @@ public class PutBookingTest extends ApiTest {
     @Test
     public void canUpdateWithBasicAuth(String username, String password) {
         BookingDTO updatedBooking = getBookingDTOWithAllValues();
-        given().spec(withIdPathParam(oldBooking.getId())).contentType(ContentType.JSON).auth().preemptive().basic(username, password).body(updatedBooking).log().all()
+        given().spec(withIdPathParam(oldBooking.getId())).contentType(ContentType.JSON).auth().preemptive().basic(username, password).body(updatedBooking)
                 .when().put(Endpoints.bookingParameterized)
-                .then().statusCode(HttpStatus.SC_OK).log().all();
+                .then().statusCode(HttpStatus.SC_OK);
     }
 
     @Test

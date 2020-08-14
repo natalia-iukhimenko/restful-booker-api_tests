@@ -29,37 +29,25 @@ public class PostBookingTest extends ApiTest {
 
     @Test(dataProvider = "withoutMandatoryValue", dataProviderClass = BookingDataProvider.class)
     public void canNotCreateBookingWithoutMandatoryValue(BookingDTO testBookingDTO) {
-        given()
-                .contentType(ContentType.JSON)
-                .body(testBookingDTO)
-                .when()
-                .post(Endpoints.booking)
-                .then()
-                .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+        given().contentType(ContentType.JSON).body(testBookingDTO)
+                .when().post(Endpoints.booking)
+                .then().statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
     }
 
     @Test(dataProvider = "withNegativePrice", dataProviderClass = BookingDataProvider.class)
     public void canNotCreateBookingWithNegativePrice(BookingDTO testBookingDTO) {
         testBookingDTO.setTotalPrice(-100);
-        given()
-                .contentType(ContentType.JSON)
-                .body(testBookingDTO)
-                .when()
-                .post(Endpoints.booking)
-                .then()
-                .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+        given().contentType(ContentType.JSON).body(testBookingDTO)
+                .when().post(Endpoints.booking)
+                .then().statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
     }
 
     @Test(dataProvider = "invalidDateRanges", dataProviderClass = BookingDataProvider.class)
     public void canNotCreateBookingWithInvalidDateRange(BookingDatesDTO testBookingDatesDTO) {
         BookingDTO testBookingDTO = getBookingDTOWithAllValues();
         testBookingDTO.setBookingDates(testBookingDatesDTO);
-        given()
-                .contentType(ContentType.JSON)
-                .body(testBookingDTO)
-                .when()
-                .post(Endpoints.booking)
-                .then()
-                .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+        given().contentType(ContentType.JSON).body(testBookingDTO)
+                .when().post(Endpoints.booking)
+                .then().statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
     }
 }

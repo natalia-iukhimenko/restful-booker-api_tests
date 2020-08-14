@@ -1,3 +1,5 @@
+package ru.iukhimenko.restfulbooker;
+
 import io.restassured.RestAssured;
 import org.testng.annotations.BeforeTest;
 

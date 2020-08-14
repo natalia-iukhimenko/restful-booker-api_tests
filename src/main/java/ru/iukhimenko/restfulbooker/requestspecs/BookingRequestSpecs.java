@@ -1,4 +1,4 @@
-package requestspecs;
+package ru.iukhimenko.restfulbooker.requestspecs;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;

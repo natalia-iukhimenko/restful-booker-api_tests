@@ -1,10 +1,19 @@
-package dto;
+package ru.iukhimenko.restfulbooker.dto.booking;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BookingDatesDTO {
     private String checkIn;
     private String checkOut;
+
+    public BookingDatesDTO() {
+
+    }
+
+    public BookingDatesDTO(String checkIn, String checkOut) {
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+    }
 
     @JsonProperty("checkin")
     public void setCheckin(String checkIn){

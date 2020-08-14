@@ -1,0 +1,10 @@
+# IntelliJ
+.idea/
+*.iml
+*.iws
+# Maven:
+target/
+logs/
+build/
+# Allure
+allure-results

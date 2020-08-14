@@ -1,9 +1,8 @@
-package dto;
+package ru.iukhimenko.restfulbooker.dto.booking;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -84,4 +83,6 @@ public class BookingDTO {
     public String getAdditionalNeeds(){
         return this.additionalNeeds;
     }
+
+
 }

@@ -34,6 +34,13 @@ public class BookingDataProvider {
         };
     }
 
+    @DataProvider(name = "withNegativePrice")
+    public static Object[][] withNegativePrice() {
+        BookingDTO booking = getBookingDTOWithAllValues();
+        booking.setTotalPrice(-100);
+        return new Object[][] { { booking }};
+    }
+
     @DataProvider(name = "invalidDateRanges")
     public static Object[][] withInvalidDateRanges() {
         LocalDate checkIn = LocalDate.now().plusMonths(1);

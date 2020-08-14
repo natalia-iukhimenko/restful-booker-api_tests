@@ -37,7 +37,7 @@ public class PostBookingTest extends ApiTest {
                 .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
     }
 
-    @Test(dataProvider = "withAllValues", dataProviderClass = BookingDataProvider.class)
+    @Test(dataProvider = "withNegativePrice", dataProviderClass = BookingDataProvider.class)
     public void canNotCreateBookingWithNegativePrice(BookingDTO testBookingDTO) {
         testBookingDTO.setTotalPrice(-100);
         given()

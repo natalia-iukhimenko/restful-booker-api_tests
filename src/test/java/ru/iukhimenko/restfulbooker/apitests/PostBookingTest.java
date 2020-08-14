@@ -12,18 +12,19 @@ import ru.iukhimenko.restfulbooker.dto.booking.BookingDatesDTO;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.iukhimenko.restfulbooker.BookingDataProvider.getBookingDTOWithAllValues;
+import static ru.iukhimenko.restfulbooker.api.BookingApi.getAllBookingIds;
 
 public class PostBookingTest extends ApiTest {
     @Test(dataProvider = "withAllValues", dataProviderClass = BookingDataProvider.class)
     public void canCreateBookingWithAllValues(BookingDTO testBookingDTO) {
         Integer createdBookingId = BookingApi.postBooking(testBookingDTO);
-        assertThat(createdBookingId).isNotNull();
+        assertThat(getAllBookingIds()).contains(createdBookingId);
     }
 
     @Test(dataProvider = "withMandatoryValues", dataProviderClass = BookingDataProvider.class)
     public void canCreateBookingWithOnlyMandatoryValues(BookingDTO testBookingDTO) {
         Integer createdBookingId = BookingApi.postBooking(testBookingDTO);
-        assertThat(createdBookingId).isNotNull();
+        assertThat(getAllBookingIds()).contains(createdBookingId);
     }
 
     @Test(dataProvider = "withoutMandatoryValue", dataProviderClass = BookingDataProvider.class)

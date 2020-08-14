@@ -9,7 +9,12 @@ import ru.iukhimenko.restfulbooker.Endpoints;
 import ru.iukhimenko.restfulbooker.BookingDataProvider;
 import ru.iukhimenko.restfulbooker.api.BookingApi;
 import ru.iukhimenko.restfulbooker.dto.booking.BookingDTO;
+
+import java.util.List;
+
 import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
+import static ru.iukhimenko.restfulbooker.api.BookingApi.getAllBookingIds;
 import static ru.iukhimenko.restfulbooker.requestspecs.BookingRequestSpecs.withIdPathParam;
 
 public class DeleteBookingTest extends ApiTest {
@@ -36,7 +41,8 @@ public class DeleteBookingTest extends ApiTest {
         given().spec(withIdPathParam(testBookingDTO.getId())).cookie("token", tokenValue)
                 .when().delete(Endpoints.bookingParameterized)
                 .then().statusCode(HttpStatus.SC_CREATED);
-        // check that no id
+
+        assertThat(getAllBookingIds()).doesNotContain(testBookingDTO.getId());
     }
 
     @Parameters( {"username", "password"} )
@@ -45,13 +51,13 @@ public class DeleteBookingTest extends ApiTest {
         given().spec(withIdPathParam(testBookingDTO.getId())).auth().preemptive().basic(username, password)
                 .when().delete(Endpoints.bookingParameterized)
                 .then().statusCode(HttpStatus.SC_CREATED);
-        // check that no id
+
+        assertThat(getAllBookingIds()).doesNotContain(testBookingDTO.getId());
     }
 
     @Parameters( {"username", "password"} )
     @Test
     public void notAllowedToDeleteNotExisting(String username, String password) {
-        BookingDTO updatedBooking = BookingDataProvider.getBookingDTOWithAllValues();
         given().spec(withIdPathParam(-1)).auth().preemptive().basic(username, password)
                 .when().delete(Endpoints.bookingParameterized)
                 .then().assertThat().statusCode(HttpStatus.SC_METHOD_NOT_ALLOWED);

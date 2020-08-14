@@ -6,7 +6,11 @@ import ru.iukhimenko.restfulbooker.Endpoints;
 import ru.iukhimenko.restfulbooker.dto.booking.BookingDTO;
 import io.restassured.http.ContentType;
 import java.util.HashMap;
+import java.util.List;
+
 import static io.restassured.RestAssured.given;
+import static org.apache.http.HttpStatus.SC_NOT_FOUND;
+import static ru.iukhimenko.restfulbooker.requestspecs.BookingRequestSpecs.withIdPathParam;
 import static ru.iukhimenko.restfulbooker.responsespecs.BaseResponseSpecs.success;
 
 public class BookingApi {
@@ -30,5 +34,11 @@ public class BookingApi {
                 .when().post(Endpoints.auth)
                 .then().extract().body().path("token");
         return token;
+    }
+
+    public static List<Integer> getAllBookingIds() {
+        return given()
+                .when().get(Endpoints.booking)
+                .then().extract().body().jsonPath().getList("bookingid");
     }
 }

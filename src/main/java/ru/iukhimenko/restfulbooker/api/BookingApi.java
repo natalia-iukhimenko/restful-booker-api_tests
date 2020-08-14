@@ -6,6 +6,7 @@ import io.restassured.http.ContentType;
 import java.util.HashMap;
 import java.util.List;
 import static io.restassured.RestAssured.given;
+import static ru.iukhimenko.restfulbooker.requestspecs.BookingRequestSpecs.withIdPathParam;
 import static ru.iukhimenko.restfulbooker.responsespecs.BaseResponseSpecs.success;
 
 public class BookingApi {
@@ -35,5 +36,11 @@ public class BookingApi {
         return given()
                 .when().get(Endpoints.booking)
                 .then().extract().body().jsonPath().getList("bookingid");
+    }
+
+    public static BookingDTO getBookingById(Integer bookingId) {
+        return given().spec(withIdPathParam(bookingId))
+                .when().get(Endpoints.bookingParameterized)
+                .then().extract().body().as(BookingDTO.class);
     }
 }

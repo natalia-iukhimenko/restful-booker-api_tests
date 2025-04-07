@@ -6,16 +6,13 @@ public class BookingDatesDTO {
     private String checkIn;
     private String checkOut;
 
-    public BookingDatesDTO() {
-    }
-
     public BookingDatesDTO(String checkIn, String checkOut) {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
     }
 
     @JsonProperty("checkin")
-    public void setCheckin(String checkIn){
+    public void setCheckIn(String checkIn){
         this.checkIn = checkIn;
     }
 
@@ -34,7 +31,6 @@ public class BookingDatesDTO {
         return this.checkOut;
     }
 
-
     @Override
     public boolean equals(Object object) {
         if (object == this)
@@ -42,7 +38,7 @@ public class BookingDatesDTO {
         if (object == null || object.getClass() != this.getClass())
             return false;
         BookingDatesDTO bookingDates = (BookingDatesDTO)object;
-        return (bookingDates != null && checkIn.equals(bookingDates.checkIn) && checkOut.equals(bookingDates.checkOut));
+        return (checkIn.equals(bookingDates.checkIn) && checkOut.equals(bookingDates.checkOut));
     }
 
     @Override

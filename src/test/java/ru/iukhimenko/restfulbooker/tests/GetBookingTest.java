@@ -10,8 +10,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
-import static ru.iukhimenko.restfulbooker.requestspecs.BookingRequestSpecs.withIdPathParam;
-import static ru.iukhimenko.restfulbooker.responsespecs.BaseResponseSpecs.success;
+import static ru.iukhimenko.restfulbooker.requestSpecs.BookingRequestSpecs.withIdPathParam;
+import static ru.iukhimenko.restfulbooker.responseSpecs.BaseResponseSpecs.success;
 
 public class GetBookingTest extends ApiTest {
     private BookingDTO testBookingDTO;

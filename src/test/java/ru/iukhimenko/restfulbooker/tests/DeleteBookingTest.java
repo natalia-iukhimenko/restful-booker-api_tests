@@ -12,7 +12,7 @@ import ru.iukhimenko.restfulbooker.dto.booking.BookingDTO;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.iukhimenko.restfulbooker.api.BookingApi.getAllBookingIds;
-import static ru.iukhimenko.restfulbooker.requestspecs.BookingRequestSpecs.withIdPathParam;
+import static ru.iukhimenko.restfulbooker.requestSpecs.BookingRequestSpecs.withIdPathParam;
 
 public class DeleteBookingTest extends ApiTest {
     private BookingDTO testBookingDTO;

@@ -28,7 +28,7 @@ public class BookingDataProvider {
                 { remover(bookingDTO -> bookingDTO.setLastName(null)) },
                 { remover(bookingDTO -> bookingDTO.setTotalPrice(null)) },
                 { remover(bookingDTO -> bookingDTO.setDepositPaid(null)) },
-                { remover(bookingDTO -> bookingDTO.getBookingDates().setCheckin(null)) },
+                { remover(bookingDTO -> bookingDTO.getBookingDates().setCheckIn(null)) },
                 { remover(bookingDTO -> bookingDTO.getBookingDates().setCheckOut(null)) }
         };
     }

@@ -27,7 +27,7 @@ public class DeleteBookingTest extends ApiTest {
     @Test
     public void canNotDeleteWithoutCookieOrAuthorization() {
         given().spec(withIdPathParam(testBookingDTO.getId()))
-                .when().delete(Endpoints.bookingParameterized)
+                .when().delete(Endpoints.BOOKING_PARAMETERIZED)
                 .then().assertThat().statusCode(HttpStatus.SC_FORBIDDEN);
     }
 
@@ -36,7 +36,7 @@ public class DeleteBookingTest extends ApiTest {
     public void canDeleteWithValidCookie(String username, String password) {
         String tokenValue = BookingApi.getToken(username, password);
         given().spec(withIdPathParam(testBookingDTO.getId())).cookie("token", tokenValue)
-                .when().delete(Endpoints.bookingParameterized)
+                .when().delete(Endpoints.BOOKING_PARAMETERIZED)
                 .then().statusCode(HttpStatus.SC_CREATED);
 
         assertThat(getAllBookingIds()).doesNotContain(testBookingDTO.getId());
@@ -46,7 +46,7 @@ public class DeleteBookingTest extends ApiTest {
     @Test
     public void canDeleteWithAuthorizationHeader(String username, String password) {
         given().spec(withIdPathParam(testBookingDTO.getId())).auth().preemptive().basic(username, password)
-                .when().delete(Endpoints.bookingParameterized)
+                .when().delete(Endpoints.BOOKING_PARAMETERIZED)
                 .then().statusCode(HttpStatus.SC_CREATED);
 
         assertThat(getAllBookingIds()).doesNotContain(testBookingDTO.getId());
@@ -56,7 +56,7 @@ public class DeleteBookingTest extends ApiTest {
     @Test
     public void notAllowedToDeleteNotExisting(String username, String password) {
         given().spec(withIdPathParam(-1)).auth().preemptive().basic(username, password)
-                .when().delete(Endpoints.bookingParameterized)
+                .when().delete(Endpoints.BOOKING_PARAMETERIZED)
                 .then().assertThat().statusCode(HttpStatus.SC_METHOD_NOT_ALLOWED);
     }
 }

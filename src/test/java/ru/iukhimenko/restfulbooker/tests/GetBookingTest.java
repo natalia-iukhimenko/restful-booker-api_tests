@@ -27,7 +27,7 @@ public class GetBookingTest extends ApiTest {
     public void getExistingBookingByIdTest() {
         BookingDTO receivedBooking = given()
                 .spec(withIdPathParam(testBookingDTO.getId()))
-                .when().get(Endpoints.bookingParameterized)
+                .when().get(Endpoints.BOOKING_PARAMETERIZED)
                 .then().spec(success())
                     .extract().body().as(BookingDTO.class);
         assertThat(receivedBooking).isEqualToIgnoringGivenFields(testBookingDTO, "id");
@@ -38,7 +38,7 @@ public class GetBookingTest extends ApiTest {
     public void getBookingByInvalidIdReturnsNotFound(Integer invalidBookingId) {
         given()
                 .spec(withIdPathParam(invalidBookingId))
-                .when().get(Endpoints.bookingParameterized)
+                .when().get(Endpoints.BOOKING_PARAMETERIZED)
                 .then().assertThat().statusCode(SC_NOT_FOUND);
     }
 
@@ -46,7 +46,7 @@ public class GetBookingTest extends ApiTest {
     public void defaultContentTypeIsJsonTest() {
         given()
                 .spec(withIdPathParam(testBookingDTO.getId()))
-                .when().get(Endpoints.bookingParameterized)
+                .when().get(Endpoints.BOOKING_PARAMETERIZED)
                 .then().assertThat().contentType(ContentType.JSON).and().spec(success());
     }
 }

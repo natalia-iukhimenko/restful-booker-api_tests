@@ -1,4 +1,4 @@
-package ru.iukhimenko.restfulbooker.apitests;
+package ru.iukhimenko.restfulbooker.tests;
 
 import org.testng.annotations.Parameters;
 import ru.iukhimenko.restfulbooker.*;

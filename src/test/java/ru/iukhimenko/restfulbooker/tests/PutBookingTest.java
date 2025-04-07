@@ -1,4 +1,4 @@
-package ru.iukhimenko.restfulbooker.apitests;
+package ru.iukhimenko.restfulbooker.tests;
 
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
@@ -6,7 +6,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import ru.iukhimenko.restfulbooker.ApiTest;
-import ru.iukhimenko.restfulbooker.BookingDataProvider;
 import ru.iukhimenko.restfulbooker.Endpoints;
 import ru.iukhimenko.restfulbooker.api.BookingApi;
 import ru.iukhimenko.restfulbooker.dto.booking.BookingDTO;

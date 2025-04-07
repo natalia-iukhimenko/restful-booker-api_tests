@@ -1,4 +1,4 @@
-package ru.iukhimenko.restfulbooker.apitests;
+package ru.iukhimenko.restfulbooker.tests;
 
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;

@@ -39,7 +39,7 @@ public class PostBookingTest extends ApiTest {
         testBookingDTO.setTotalPrice(-100);
         given().contentType(ContentType.JSON).body(testBookingDTO)
                 .when().post(Endpoints.BOOKING)
-                .then().statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+                .then().statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 
     @Test(dataProvider = "invalidDateRanges", dataProviderClass = BookingDataProvider.class)
@@ -48,6 +48,6 @@ public class PostBookingTest extends ApiTest {
         testBookingDTO.setBookingDates(testBookingDatesDTO);
         given().contentType(ContentType.JSON).body(testBookingDTO)
                 .when().post(Endpoints.BOOKING)
-                .then().statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+                .then().statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 }

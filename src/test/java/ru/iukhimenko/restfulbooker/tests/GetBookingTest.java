@@ -30,7 +30,10 @@ public class GetBookingTest extends ApiTest {
                 .when().get(Endpoints.BOOKING_PARAMETERIZED)
                 .then().spec(success())
                     .extract().body().as(BookingDTO.class);
-        assertThat(receivedBooking).isEqualToIgnoringGivenFields(testBookingDTO, "id");
+        assertThat(receivedBooking)
+                .usingRecursiveComparison()
+                .ignoringFields( "id")
+                .isEqualTo(testBookingDTO);
     }
 
     @Parameters({"invalidBookingId"})

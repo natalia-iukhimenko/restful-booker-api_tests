@@ -11,6 +11,8 @@ public class BookingDatesDTO {
         this.checkOut = checkOut;
     }
 
+    public BookingDatesDTO() {}
+
     @JsonProperty("checkin")
     public void setCheckIn(String checkIn){
         this.checkIn = checkIn;

@@ -6,8 +6,7 @@ import io.restassured.http.ContentType;
 import java.util.HashMap;
 import java.util.List;
 import static io.restassured.RestAssured.given;
-import static ru.iukhimenko.restfulbooker.requestspecs.BookingRequestSpecs.withIdPathParam;
-import static ru.iukhimenko.restfulbooker.responsespecs.BaseResponseSpecs.success;
+import static ru.iukhimenko.restfulbooker.responseSpecs.BaseResponseSpecs.success;
 
 public class BookingApi {
     public static Integer postBooking(BookingDTO booking) {
@@ -15,32 +14,30 @@ public class BookingApi {
                 .contentType(ContentType.JSON)
                 .body(booking)
                 .when()
-                .post(Endpoints.booking)
+                .post(Endpoints.BOOKING)
                 .then()
                 .spec(success())
                 .extract().body().path("bookingid");
     }
 
     public static String getToken(String username, String password) {
-        var userCreds = new HashMap<String, String>();
-        userCreds.put("username", username);
-        userCreds.put("password", password);
+        var userCredentials = new HashMap<String, String>();
+        userCredentials.put("username", username);
+        userCredentials.put("password", password);
 
-        String token = given().contentType(ContentType.JSON).body(userCreds)
-                .when().post(Endpoints.auth)
-                .then().extract().body().path("token");
-        return token;
+        return given()
+                .contentType(ContentType.JSON)
+                .body(userCredentials)
+                .when()
+                .post(Endpoints.AUTH)
+                .then()
+                .extract().body().path("token");
     }
 
     public static List<Integer> getAllBookingIds() {
         return given()
-                .when().get(Endpoints.booking)
+                .when()
+                .get(Endpoints.BOOKING)
                 .then().extract().body().jsonPath().getList("bookingid");
-    }
-
-    public static BookingDTO getBookingById(Integer bookingId) {
-        return given().spec(withIdPathParam(bookingId))
-                .when().get(Endpoints.bookingParameterized)
-                .then().extract().body().as(BookingDTO.class);
     }
 }

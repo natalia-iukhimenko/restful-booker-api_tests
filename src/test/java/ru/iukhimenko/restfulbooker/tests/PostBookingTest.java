@@ -1,4 +1,4 @@
-package ru.iukhimenko.restfulbooker.apitests;
+package ru.iukhimenko.restfulbooker.tests;
 
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
@@ -30,7 +30,7 @@ public class PostBookingTest extends ApiTest {
     @Test(dataProvider = "withoutMandatoryValue", dataProviderClass = BookingDataProvider.class)
     public void canNotCreateBookingWithoutMandatoryValue(BookingDTO testBookingDTO) {
         given().contentType(ContentType.JSON).body(testBookingDTO)
-                .when().post(Endpoints.booking)
+                .when().post(Endpoints.BOOKING)
                 .then().statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
     }
 
@@ -38,8 +38,8 @@ public class PostBookingTest extends ApiTest {
     public void canNotCreateBookingWithNegativePrice(BookingDTO testBookingDTO) {
         testBookingDTO.setTotalPrice(-100);
         given().contentType(ContentType.JSON).body(testBookingDTO)
-                .when().post(Endpoints.booking)
-                .then().statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+                .when().post(Endpoints.BOOKING)
+                .then().statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 
     @Test(dataProvider = "invalidDateRanges", dataProviderClass = BookingDataProvider.class)
@@ -47,7 +47,7 @@ public class PostBookingTest extends ApiTest {
         BookingDTO testBookingDTO = getBookingDTOWithAllValues();
         testBookingDTO.setBookingDates(testBookingDatesDTO);
         given().contentType(ContentType.JSON).body(testBookingDTO)
-                .when().post(Endpoints.booking)
-                .then().statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+                .when().post(Endpoints.BOOKING)
+                .then().statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 }

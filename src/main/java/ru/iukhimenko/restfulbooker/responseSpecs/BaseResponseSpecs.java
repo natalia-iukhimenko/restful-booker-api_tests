@@ -1,4 +1,4 @@
-package ru.iukhimenko.restfulbooker.responsespecs;
+package ru.iukhimenko.restfulbooker.responseSpecs;
 
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.ResponseSpecification;

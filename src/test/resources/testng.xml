@@ -5,22 +5,22 @@
     <parameter name="invalidBookingId" value="-1"/>
     <test name="GetBooking">
         <classes>
-            <class name="ru.iukhimenko.restfulbooker.apitests.GetBookingTest" />
+            <class name="ru.iukhimenko.restfulbooker.tests.GetBookingTest" />
         </classes>
     </test>
     <test name="PostBooking">
         <classes>
-            <class name="ru.iukhimenko.restfulbooker.apitests.PostBookingTest" />
+            <class name="ru.iukhimenko.restfulbooker.tests.PostBookingTest" />
         </classes>
     </test>
     <test name="PutBooking">
         <classes>
-            <class name="ru.iukhimenko.restfulbooker.apitests.PutBookingTest" />
+            <class name="ru.iukhimenko.restfulbooker.tests.PutBookingTest" />
         </classes>
     </test>
     <test name="DeleteBooking">
         <classes>
-            <class name="ru.iukhimenko.restfulbooker.apitests.DeleteBookingTest" />
+            <class name="ru.iukhimenko.restfulbooker.tests.DeleteBookingTest" />
         </classes>
     </test>
 </suite>

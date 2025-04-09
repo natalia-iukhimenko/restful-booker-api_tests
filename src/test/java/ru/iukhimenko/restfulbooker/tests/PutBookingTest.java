@@ -1,4 +1,4 @@
-package ru.iukhimenko.restfulbooker.apitests;
+package ru.iukhimenko.restfulbooker.tests;
 
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
@@ -6,14 +6,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import ru.iukhimenko.restfulbooker.ApiTest;
-import ru.iukhimenko.restfulbooker.BookingDataProvider;
 import ru.iukhimenko.restfulbooker.Endpoints;
 import ru.iukhimenko.restfulbooker.api.BookingApi;
 import ru.iukhimenko.restfulbooker.dto.booking.BookingDTO;
 import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
 import static ru.iukhimenko.restfulbooker.BookingDataProvider.getBookingDTOWithAllValues;
-import static ru.iukhimenko.restfulbooker.requestspecs.BookingRequestSpecs.withIdPathParam;
+import static ru.iukhimenko.restfulbooker.requestSpecs.BookingRequestSpecs.withIdPathParam;
 
 public class PutBookingTest extends ApiTest {
     private BookingDTO oldBooking;
@@ -30,7 +28,7 @@ public class PutBookingTest extends ApiTest {
     public void canUpdateWithValidCookie(String username, String password) {
         String tokenValue = BookingApi.getToken(username, password);
         given().spec(withIdPathParam(oldBooking.getId())).contentType(ContentType.JSON).cookie("token", tokenValue).body(getBookingDTOWithAllValues())
-                .when().put(Endpoints.bookingParameterized)
+                .when().put(Endpoints.BOOKING_PARAMETERIZED)
                 .then().statusCode(HttpStatus.SC_OK);
     }
 
@@ -39,7 +37,7 @@ public class PutBookingTest extends ApiTest {
     public void canUpdateWithBasicAuth(String username, String password) {
         BookingDTO updatedBooking = getBookingDTOWithAllValues();
         given().spec(withIdPathParam(oldBooking.getId())).contentType(ContentType.JSON).auth().preemptive().basic(username, password).body(updatedBooking)
-                .when().put(Endpoints.bookingParameterized)
+                .when().put(Endpoints.BOOKING_PARAMETERIZED)
                 .then().statusCode(HttpStatus.SC_OK);
     }
 
@@ -47,7 +45,7 @@ public class PutBookingTest extends ApiTest {
     public void canNotUpdateWithoutCookieOrAuthorization() {
         BookingDTO updatedBooking = getBookingDTOWithAllValues();
         given().spec(withIdPathParam(oldBooking.getId())).contentType(ContentType.JSON).body(updatedBooking)
-                .when().put(Endpoints.bookingParameterized)
+                .when().put(Endpoints.BOOKING_PARAMETERIZED)
                 .then().assertThat().statusCode(HttpStatus.SC_FORBIDDEN);
     }
 
@@ -56,7 +54,7 @@ public class PutBookingTest extends ApiTest {
     public void canNotUpdateNotExisting(String username, String password) {
         BookingDTO updatedBooking = getBookingDTOWithAllValues();
         given().spec(withIdPathParam(-1)).contentType(ContentType.JSON).auth().preemptive().basic(username, password).body(updatedBooking)
-                .when().put(Endpoints.bookingParameterized)
+                .when().put(Endpoints.BOOKING_PARAMETERIZED)
                 .then().assertThat().statusCode(HttpStatus.SC_METHOD_NOT_ALLOWED);
     }
 }

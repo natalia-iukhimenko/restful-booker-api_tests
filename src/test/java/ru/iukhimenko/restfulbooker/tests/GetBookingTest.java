@@ -1,4 +1,4 @@
-package ru.iukhimenko.restfulbooker.apitests;
+package ru.iukhimenko.restfulbooker.tests;
 
 import org.testng.annotations.Parameters;
 import ru.iukhimenko.restfulbooker.*;
@@ -10,8 +10,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
-import static ru.iukhimenko.restfulbooker.requestspecs.BookingRequestSpecs.withIdPathParam;
-import static ru.iukhimenko.restfulbooker.responsespecs.BaseResponseSpecs.success;
+import static ru.iukhimenko.restfulbooker.requestSpecs.BookingRequestSpecs.withIdPathParam;
+import static ru.iukhimenko.restfulbooker.responseSpecs.BaseResponseSpecs.success;
 
 public class GetBookingTest extends ApiTest {
     private BookingDTO testBookingDTO;
@@ -27,10 +27,13 @@ public class GetBookingTest extends ApiTest {
     public void getExistingBookingByIdTest() {
         BookingDTO receivedBooking = given()
                 .spec(withIdPathParam(testBookingDTO.getId()))
-                .when().get(Endpoints.bookingParameterized)
+                .when().get(Endpoints.BOOKING_PARAMETERIZED)
                 .then().spec(success())
                     .extract().body().as(BookingDTO.class);
-        assertThat(receivedBooking).isEqualToIgnoringGivenFields(testBookingDTO, "id");
+        assertThat(receivedBooking)
+                .usingRecursiveComparison()
+                .ignoringFields( "id")
+                .isEqualTo(testBookingDTO);
     }
 
     @Parameters({"invalidBookingId"})
@@ -38,7 +41,7 @@ public class GetBookingTest extends ApiTest {
     public void getBookingByInvalidIdReturnsNotFound(Integer invalidBookingId) {
         given()
                 .spec(withIdPathParam(invalidBookingId))
-                .when().get(Endpoints.bookingParameterized)
+                .when().get(Endpoints.BOOKING_PARAMETERIZED)
                 .then().assertThat().statusCode(SC_NOT_FOUND);
     }
 
@@ -46,7 +49,7 @@ public class GetBookingTest extends ApiTest {
     public void defaultContentTypeIsJsonTest() {
         given()
                 .spec(withIdPathParam(testBookingDTO.getId()))
-                .when().get(Endpoints.bookingParameterized)
+                .when().get(Endpoints.BOOKING_PARAMETERIZED)
                 .then().assertThat().contentType(ContentType.JSON).and().spec(success());
     }
 }

@@ -83,4 +83,6 @@ public class BookingDTO {
     public String getAdditionalNeeds(){
         return this.additionalNeeds;
     }
+
+    public BookingDTO() {}
 }

@@ -1,4 +1,4 @@
-package ru.iukhimenko.restfulbooker.apitests;
+package ru.iukhimenko.restfulbooker.tests;
 
 import org.apache.http.HttpStatus;
 import org.testng.annotations.BeforeMethod;
@@ -12,7 +12,7 @@ import ru.iukhimenko.restfulbooker.dto.booking.BookingDTO;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.iukhimenko.restfulbooker.api.BookingApi.getAllBookingIds;
-import static ru.iukhimenko.restfulbooker.requestspecs.BookingRequestSpecs.withIdPathParam;
+import static ru.iukhimenko.restfulbooker.requestSpecs.BookingRequestSpecs.withIdPathParam;
 
 public class DeleteBookingTest extends ApiTest {
     private BookingDTO testBookingDTO;
@@ -27,7 +27,7 @@ public class DeleteBookingTest extends ApiTest {
     @Test
     public void canNotDeleteWithoutCookieOrAuthorization() {
         given().spec(withIdPathParam(testBookingDTO.getId()))
-                .when().delete(Endpoints.bookingParameterized)
+                .when().delete(Endpoints.BOOKING_PARAMETERIZED)
                 .then().assertThat().statusCode(HttpStatus.SC_FORBIDDEN);
     }
 
@@ -36,7 +36,7 @@ public class DeleteBookingTest extends ApiTest {
     public void canDeleteWithValidCookie(String username, String password) {
         String tokenValue = BookingApi.getToken(username, password);
         given().spec(withIdPathParam(testBookingDTO.getId())).cookie("token", tokenValue)
-                .when().delete(Endpoints.bookingParameterized)
+                .when().delete(Endpoints.BOOKING_PARAMETERIZED)
                 .then().statusCode(HttpStatus.SC_CREATED);
 
         assertThat(getAllBookingIds()).doesNotContain(testBookingDTO.getId());
@@ -46,7 +46,7 @@ public class DeleteBookingTest extends ApiTest {
     @Test
     public void canDeleteWithAuthorizationHeader(String username, String password) {
         given().spec(withIdPathParam(testBookingDTO.getId())).auth().preemptive().basic(username, password)
-                .when().delete(Endpoints.bookingParameterized)
+                .when().delete(Endpoints.BOOKING_PARAMETERIZED)
                 .then().statusCode(HttpStatus.SC_CREATED);
 
         assertThat(getAllBookingIds()).doesNotContain(testBookingDTO.getId());
@@ -56,7 +56,7 @@ public class DeleteBookingTest extends ApiTest {
     @Test
     public void notAllowedToDeleteNotExisting(String username, String password) {
         given().spec(withIdPathParam(-1)).auth().preemptive().basic(username, password)
-                .when().delete(Endpoints.bookingParameterized)
+                .when().delete(Endpoints.BOOKING_PARAMETERIZED)
                 .then().assertThat().statusCode(HttpStatus.SC_METHOD_NOT_ALLOWED);
     }
 }

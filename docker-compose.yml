@@ -1,0 +1,23 @@
+volumes:
+  reports:
+services:
+  api-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: restful-booker-api-tests
+    volumes:
+      - reports:/app/target/allure-results
+  api-tests-report:
+    image: "frankescobar/allure-docker-service"
+    depends_on:
+      - api-tests
+    container_name: api-tests-report
+    user: 1000:1000
+    environment:
+      CHECK_RESULTS_EVERY_SECONDS: 1
+      KEEP_HISTORY: 1
+    ports:
+      - "5050:5050"
+    volumes:
+      - reports:/app/allure-results
